@@ -93,16 +93,16 @@ DESTDIR := /tmp/OpenVDB
 DESTDIR_LIB_DIR := $(DESTDIR)/lib
 
 # The parent directory of the boost/ header directory
-BOOST_INCL_DIR := $(HT)/include
+BOOST_INCL_DIR := /usr/include
 # The directory containing libboost_iostreams, libboost_system, etc.
-BOOST_LIB_DIR := $(HDSO)
+BOOST_LIB_DIR := /usr/lib64
 BOOST_LIB := -lboost_iostreams -lboost_system
-BOOST_THREAD_LIB := -lboost_thread
+BOOST_THREAD_LIB := -lboost_thread-mt
 
 # The parent directory of the OpenEXR/ header directory
-EXR_INCL_DIR := $(HT)/include
+EXR_INCL_DIR := /usr/local/include
 # The directory containing IlmImf
-EXR_LIB_DIR := $(HDSO)
+EXR_LIB_DIR := /usr/local/lib
 EXR_LIB := -lIlmImf
 
 # The parent directory of the OpenEXR/ header directory (which contains half.h)
@@ -113,9 +113,9 @@ ILMBASE_LIB := -lIlmThread -lIex -lImath
 HALF_LIB := -lHalf
 
 # The parent directory of the tbb/ header directory
-TBB_INCL_DIR := $(HT)/include
+TBB_INCL_DIR := /tmp/tbb-2019_U5/include
 # The directory containing libtbb
-TBB_LIB_DIR := $(HDSO)
+TBB_LIB_DIR := /tmp/tbb-2019_U5/build/linux_intel64_gcc_cc4.8.5_libc2.17_kernel4.9.125_release/
 TBB_LIB := -ltbb
 
 # The parent directory of the blosc.h header
@@ -128,54 +128,54 @@ BLOSC_LIB := -lblosc
 # A scalable, concurrent malloc replacement library
 # such as jemalloc (included in the Houdini HDK) or TBB malloc
 # (leave blank if unavailable)
-CONCURRENT_MALLOC_LIB := -ljemalloc
-#CONCURRENT_MALLOC_LIB := -ltbbmalloc_proxy -ltbbmalloc
+#CONCURRENT_MALLOC_LIB := -ljemalloc
+CONCURRENT_MALLOC_LIB := -ltbbmalloc_proxy -ltbbmalloc
 # The directory containing the malloc replacement library
-CONCURRENT_MALLOC_LIB_DIR := $(HDSO)
+CONCURRENT_MALLOC_LIB_DIR := $(TBB_LIB_DIR)
 
 # The parent directory of the cppunit/ header directory
 # (leave blank if CppUnit is unavailable)
 CPPUNIT_INCL_DIR :=
 # The directory containing libcppunit
 CPPUNIT_LIB_DIR :=
-CPPUNIT_LIB := -lcppunit
+CPPUNIT_LIB := 
 
 # The parent directory of the log4cplus/ header directory
 # (leave blank if log4cplus is unavailable)
-LOG4CPLUS_INCL_DIR := /rel/folio/log4cplus/log4cplus-1.1.2-latest/sys_include
+LOG4CPLUS_INCL_DIR := 
 # The directory containing liblog4cplus
-LOG4CPLUS_LIB_DIR := /rel/folio/log4cplus/log4cplus-1.1.2-latest/library/c++11
-LOG4CPLUS_LIB := -llog4cplus
+LOG4CPLUS_LIB_DIR := 
+LOG4CPLUS_LIB := 
 
 # The directory containing glfw.h
 # (leave blank if GLFW is unavailable)
-GLFW_INCL_DIR := /rel/third_party/glfw/glfw-3.0.1/include
+GLFW_INCL_DIR := 
 # The directory containing libglfw
-GLFW_LIB_DIR := /rel/third_party/glfw/glfw-3.0.1/lib
-GLFW_LIB := -lglfw
+GLFW_LIB_DIR := 
+GLFW_LIB := 
 # The major version number of the GLFW library
 # (header filenames changed between GLFW 2 and 3, so this must be specified explicitly)
-GLFW_MAJOR_VERSION := 3
+GLFW_MAJOR_VERSION := 
 
 # The version of Python for which to build the OpenVDB module
 # (leave blank if Python is unavailable)
-PYTHON_VERSION := 2.7
+PYTHON_VERSION := 
 # The directory containing Python.h
-PYTHON_INCL_DIR := $(HFS)/python/include/python$(PYTHON_VERSION)
+PYTHON_INCL_DIR := 
 # The directory containing pyconfig.h
-PYCONFIG_INCL_DIR := $(PYTHON_INCL_DIR)
+PYCONFIG_INCL_DIR := 
 # The directory containing libpython
-PYTHON_LIB_DIR := $(HFS)/python/lib
-PYTHON_LIB := -lpython$(PYTHON_VERSION)
+PYTHON_LIB_DIR := 
+PYTHON_LIB := 
 # The directory containing libboost_python
-BOOST_PYTHON_LIB_DIR := /rel/config/studio/baseline/boost/1.55.0.0/gcc-4.8.1.0/python-2.7.10.0/ext/lib/
-BOOST_PYTHON_LIB := -lboost_python-mt
+BOOST_PYTHON_LIB_DIR := 
+BOOST_PYTHON_LIB := 
 # The directory containing arrayobject.h
 # (leave blank if NumPy is unavailable)
-NUMPY_INCL_DIR := /rel/lang/python/2.7.9-1/lib/python2.7/site-packages/numpy/core/include/numpy/
+NUMPY_INCL_DIR := 
 # The Epydoc executable
 # (leave blank if Epydoc is unavailable)
-EPYDOC := /rel/map/generic_default-2014.24.237/bin/epydoc
+EPYDOC := 
 # Set PYTHON_WRAP_ALL_GRID_TYPES to "yes" to specify that the Python module
 # should expose (almost) all of the grid types defined in openvdb.h
 # Otherwise, only FloatGrid, BoolGrid and Vec3SGrid will be exposed
@@ -186,7 +186,7 @@ PYTHON_WRAP_ALL_GRID_TYPES := no
 
 # The Doxygen executable
 # (leave blank if Doxygen is unavailable)
-DOXYGEN := doxygen
+DOXYGEN := 
 
 
 #
@@ -256,12 +256,12 @@ ifneq (,$(and $(PYTHON_VERSION),$(PYTHON_LIB_DIR),$(PYTHON_INCL_DIR), \
     has_python := yes
 endif
 
-INCLDIRS := -I . -I .. -isystem $(BOOST_INCL_DIR) -isystem $(ILMBASE_INCL_DIR) -isystem $(TBB_INCL_DIR)
+INCLDIRS := -I . -I .. -I $(BOOST_INCL_DIR) -I $(ILMBASE_INCL_DIR) -I $(TBB_INCL_DIR)
 ifeq (yes,$(has_blosc))
-    INCLDIRS += -isystem $(BLOSC_INCL_DIR)
+    INCLDIRS += -I $(BLOSC_INCL_DIR)
 endif
 ifeq (yes,$(has_log4cplus))
-    INCLDIRS += -isystem $(LOG4CPLUS_INCL_DIR)
+    INCLDIRS += -I $(LOG4CPLUS_INCL_DIR)
 endif
 
 CXXFLAGS += -std=c++11
@@ -626,9 +626,9 @@ PYTHON_SRC_NAMES := \
     python/pyTransform.cc \
     python/pyVec3Grid.cc \
 #
-PYCXXFLAGS := -fPIC -isystem python -isystem $(PYTHON_INCL_DIR) -isystem $(PYCONFIG_INCL_DIR)
+PYCXXFLAGS := -fPIC -I python -I $(PYTHON_INCL_DIR) -I $(PYCONFIG_INCL_DIR)
 ifneq (,$(strip $(NUMPY_INCL_DIR)))
-PYCXXFLAGS += -isystem $(NUMPY_INCL_DIR) -DPY_OPENVDB_USE_NUMPY
+PYCXXFLAGS += -I $(NUMPY_INCL_DIR) -DPY_OPENVDB_USE_NUMPY
 endif
 ifneq (no,$(strip $(PYTHON_WRAP_ALL_GRID_TYPES)))
 PYCXXFLAGS += -DPY_OPENVDB_WRAP_ALL_GRID_TYPES
@@ -809,7 +809,7 @@ vdb_print: $(LIBOPENVDB) cmd/openvdb_print/main.cc
 vdb_render: $(LIBOPENVDB) cmd/openvdb_render/main.cc
 	@echo "Building $@ because of $(list_deps)"
 	$(CXX) $(CXXFLAGS) -o $@ cmd/openvdb_render/main.cc -I . \
-	    -isystem $(EXR_INCL_DIR) -isystem $(ILMBASE_INCL_DIR) \
+	    -I $(EXR_INCL_DIR) -I (EXR_INCL_DIR)/OpenEXR -I $(ILMBASE_INCL_DIR) \
 	    -Wl,-rpath,$(EXR_LIB_DIR) -L$(EXR_LIB_DIR) $(EXR_LIB) \
 	    -Wl,-rpath,$(ILMBASE_LIB_DIR) -L$(ILMBASE_LIB_DIR) $(ILMBASE_LIB) \
 	    $(LIBOPENVDB_RPATH) -L$(CURDIR) $(LIBOPENVDB) \
@@ -829,7 +829,7 @@ $(LIBVIEWER_INCLUDE_NAMES): openvdb_viewer
 $(LIBVIEWER_OBJ_NAMES): $(LIBVIEWER_INCLUDE_NAMES)
 $(LIBVIEWER_OBJ_NAMES): %.o: %.cc
 	@echo "Building $@ because of $(list_deps)"
-	$(CXX) -c $(CXXFLAGS) -I . -isystem $(GLFW_INCL_DIR) -DGL_GLEXT_PROTOTYPES=1 -fPIC -o $@ $<
+	$(CXX) -c $(CXXFLAGS) -I . -I $(GLFW_INCL_DIR) -DGL_GLEXT_PROTOTYPES=1 -fPIC -o $@ $<
 
 vdb_view: $(LIBOPENVDB) $(LIBVIEWER_OBJ_NAMES) cmd/openvdb_view/main.cc
 	@echo "Building $@ because of $(list_deps)"
@@ -883,7 +883,7 @@ endif
 
 $(UNITTEST_OBJ_NAMES): %.o: %.cc
 	@echo "Building $@ because of $(list_deps)"
-	$(CXX) -c $(CXXFLAGS) -isystem $(CPPUNIT_INCL_DIR) -fPIC -o $@ $<
+	$(CXX) -c $(CXXFLAGS) -I $(CPPUNIT_INCL_DIR) -fPIC -o $@ $<
 
 ifneq (,$(strip $(CPPUNIT_INCL_DIR)))
 vdb_test: $(LIBOPENVDB) $(UNITTEST_OBJ_NAMES)
@@ -992,7 +992,7 @@ $(DEPEND): $(ALL_INCLUDE_FILES) $(ALL_SRC_FILES) openvdb_viewer
 	    for f in $(UNITTEST_SRC_NAMES); \
 	        do $(CXX) $(CXXFLAGS) -O0 \
 	            -MM $$f -MT `echo $$f | sed 's%\.[^.]*%.o%'` \
-	            -isystem $(CPPUNIT_INCL_DIR) >> $(DEPEND); \
+	            -I $(CPPUNIT_INCL_DIR) >> $(DEPEND); \
 	    done; \
 	fi
 
@@ -1003,11 +1003,11 @@ HEADER_TEST_CXXFLAGS := $(CXXFLAGS)
 HEADER_TEST_FILES := $(addprefix header_test-,$(INCLUDE_NAMES) $(CMD_INCLUDE_NAMES))
 ifeq (yes,$(has_cppunit))
     HEADER_TEST_FILES += $(addprefix header_test-,$(UNITTEST_INCLUDE_NAMES))
-    HEADER_TEST_CXXFLAGS += -isystem $(CPPUNIT_INCL_DIR)
+    HEADER_TEST_CXXFLAGS += -I $(CPPUNIT_INCL_DIR)
 endif
 ifeq (yes,$(has_glfw))
     HEADER_TEST_FILES += $(addprefix header_test-,$(LIBVIEWER_INCLUDE_NAMES))
-    HEADER_TEST_CXXFLAGS += -isystem $(GLFW_INCL_DIR) -DGL_GLEXT_PROTOTYPES=1
+    HEADER_TEST_CXXFLAGS += -I $(GLFW_INCL_DIR) -DGL_GLEXT_PROTOTYPES=1
 endif
 ifeq (yes,$(has_python))
     HEADER_TEST_FILES += $(addprefix header_test-,$(PYTHON_INCLUDE_NAMES))
