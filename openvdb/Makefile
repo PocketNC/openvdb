@@ -809,7 +809,7 @@ vdb_print: $(LIBOPENVDB) cmd/openvdb_print/main.cc
 vdb_render: $(LIBOPENVDB) cmd/openvdb_render/main.cc
 	@echo "Building $@ because of $(list_deps)"
 	$(CXX) $(CXXFLAGS) -o $@ cmd/openvdb_render/main.cc -I . \
-	    -I $(EXR_INCL_DIR) -I (EXR_INCL_DIR)/OpenEXR -I $(ILMBASE_INCL_DIR) \
+	    -I $(EXR_INCL_DIR) -I $(EXR_INCL_DIR)/OpenEXR -I $(ILMBASE_INCL_DIR) \
 	    -Wl,-rpath,$(EXR_LIB_DIR) -L$(EXR_LIB_DIR) $(EXR_LIB) \
 	    -Wl,-rpath,$(ILMBASE_LIB_DIR) -L$(ILMBASE_LIB_DIR) $(ILMBASE_LIB) \
 	    $(LIBOPENVDB_RPATH) -L$(CURDIR) $(LIBOPENVDB) \
