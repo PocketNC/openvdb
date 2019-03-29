@@ -115,7 +115,7 @@ HALF_LIB := -lHalf
 # The parent directory of the tbb/ header directory
 TBB_INCL_DIR := /tmp/tbb-2019_U5/include
 # The directory containing libtbb
-TBB_LIB_DIR := /tmp/tbb-2019_U5/build/linux_intel64_gcc_cc7_libc2.26_kernel4.9.125_release/
+TBB_LIB_DIR := $(shell echo -n /tmp/tbb-2019_U5/build/*_release/)
 TBB_LIB := -ltbb
 
 # The parent directory of the blosc.h header
