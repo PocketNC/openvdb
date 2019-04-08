@@ -120,9 +120,9 @@ TBB_LIB := -ltbb
 
 # The parent directory of the blosc.h header
 # (leave blank if Blosc is unavailable)
-BLOSC_INCL_DIR := $(HT)/include
+BLOSC_INCL_DIR := /usr/local/include
 # The directory containing libblosc
-BLOSC_LIB_DIR := $(HDSO)
+BLOSC_LIB_DIR := /usr/local/lib
 BLOSC_LIB := -lblosc
 
 # A scalable, concurrent malloc replacement library
